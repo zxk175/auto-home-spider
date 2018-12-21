@@ -50,9 +50,9 @@ class UploadOss:
         return path
 
     def download(self, url, retry_time):
-        input = requests.get(url)
-        if input.status_code == 200:
-            return input
+        result = requests.get(url)
+        if result.status_code == 200:
+            return result
         if retry_time < 3:
             self.download(url, retry_time + 1)
         return
@@ -68,8 +68,8 @@ class UploadOss:
 
     def upload_oss(self):
         # 上传文件
-        input = self.download(self.httpUrl, 3)
-        result = self.upload(input, 3)
+        img = self.download(self.httpUrl, 3)
+        result = self.upload(img, 3)
 
         # 判断上传成功
         if 200 == result.status:
